@@ -28,3 +28,13 @@ To get started follow these steps:
 10. Browse to the application and it should begin working.
 
 
+# Scaling out
+-----------
+
+To scale out you will need to leverage a backplane for SignalR messaging. Out of the box you can use either SQL Server service broker or Service Bus. To use Azure Service Bus follow these steps:
+
+1. Go to the Azure Portal and create a new Azure Service Bus.
+2. From the newly created Service Bus grab the connection string.
+3. In the Application Settings create the following two entries:
+    a. jabbr:serviceBusConnectionString and set the value to the connection string value
+    b. jabbr:serviceBusTopicPrefix and set this to a prefix of your choosing (e.g. jabbr_)
