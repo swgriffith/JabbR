@@ -24,6 +24,8 @@
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1307,6 +1309,8 @@
     <EmbeddedResource Include="Migrations\201310240539050_AddPrecision.resx">
       <DependentUpon>201310240539050_AddPrecision.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\PublishProfiles\JabbR20170926010755 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\JabbR20170926011258 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\highlight.pack.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
