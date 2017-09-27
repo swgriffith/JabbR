@@ -1,5 +1,6 @@
 [Oo]bj/
 [Bb]in/
+[Pp]ublishProfiles
 *.user
 target/
 *.suo
@@ -18,3 +19,4 @@ lib/Android/Microsoft.AspNet.SignalR.Client.Android.dll.mdb
 lib/iOS/Microsoft.AspNet.SignalR.Client.iOS.dll.mdb
 .DS_Store
 *.dotSettings
+*.pubxml
