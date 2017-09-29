@@ -16,6 +16,7 @@ To get started follow these steps:
 2. Open the `JabbR.sln` file in Visual Studio 2015 or 2017 (ignore the warning about SQL Express if you don't have it).
 
 3. Restore the nuget packages (right click the solution and choose _restore nuget packages_)
+
 ![Restore nuget packages](/images/nuget-restore.png)
 
 4. Build the solution and validate it succeeds.
@@ -23,11 +24,13 @@ To get started follow these steps:
 5. Create a blank Azure SQL Database via the Azure portal. See [here](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-get-started-portal) for steps.
 
 7. Right the click the JabbR **project** in Visual Studio and choose publish. Publish the app to an Azure App Service.
+
 ![Publish to Azure](/images/jabbr-publish.gif)
 
 8. Once the app has been published, navigate to the Azure portal and find the app.
 
 9. Under the Application Settings -> Connection Strings, create a connection string called **Jabbr** and set its value to the connection string for the database you created in step 5.
+
 ![Add database connection string](/images/application-setting.gif)
 
 10. Browse to the application and it should begin working.
@@ -38,6 +41,7 @@ To get started follow these steps:
 In this section we are going to add a new deployment slot to the Web App and then initiate a slot swap.
 
 1. Within your existing Web App in the Azure portal, find the 'Deployment Slots' blade.
+
 ![Open slots blade](/images/slots-blade.PNG)
 
 2. Click 'Add Slot'.
@@ -52,9 +56,11 @@ http://<WebAppName>-<SlotName>.azurewebsites.net
 ```
 
 5. Go back to the 'Deployment Slots' blade and choose the newly created slot.
+
 ![Open Slot](/images/open-new-slot.PNG)
 
 6. From the Web App main portal page, or from the 'Deployment Slots' blade, choose 'Swap'.
+
 ![Initiate Swap](/images/initiate-swap.PNG)
 
 7. Navigate to the URLs for each slot and you should see that the sites have swapped. Swap back if you wish.
@@ -66,6 +72,7 @@ In this section we are going to make an application change which leverages a slo
 1. In the new slot Web App pane go to the 'Application Settings'
 
 2. Scroll to the 'App Settings' section and add a new setting to indicate the environment name (ex. test) and call it 'ENV'. Also select the 'Slot Setting' checkbox and then click 'Save'.
+
 ![Add slot setting](/images/add-slot-setting.PNG)
 
 3. Go back to the first Web App (i.e. the App from which you created this new slot) and set the 'ENV' application setting to specify the environment name (ex. production). Be sure to also select the 'Slot Setting' checkbox.
@@ -105,6 +112,7 @@ ex.
 In this section we are going to make a modification to the application to make it smarter. We will use Azure Cognitive Services to automatically caption images people upload.
 
 1. Create an Azure Cognitive Service in your Azure Subscription, choosing the Computer Vision API
+
 ![Cognitive Service Create](/images/cog-svc-create.PNG)
 
 2. After it creates, make a note of the Access Key and the Endpoint URL as we will use that in the code.
@@ -149,6 +157,7 @@ return new ContentProviderResult()
 ```
 
 5. Now when you upload an image it should call out to the service to automatically caption it with a description.
+
 ![Caption image](/images/image-caption.gif)
 
 
