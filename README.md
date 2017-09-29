@@ -46,7 +46,7 @@ In this section we are going to make a modification to the application to make i
 
 2. After it creates, make a note of the Access Key and the Endpoint URL as we will use that in the code.
 
-3. In the application itself we are going to make a modification to the ```ImageContentProvider class. We will add this following method (replacing the access key and endpoint url):
+3. In the application itself we are going to make a modification to the `ImageContentProvider` class. We will add this following method (replacing the access key and endpoint url):
 
 ```csharp
 static async Task<string> AnalyzeImage(string imageUrl)
@@ -70,7 +70,7 @@ static async Task<string> AnalyzeImage(string imageUrl)
 }
 ```
 
-4. Find the method ```GetCollapsibleContent and update the bottom of the method to look like this:
+4. Find the method `GetCollapsibleContent` and update the bottom of the method to look like this:
 
 ```csharp
 string contentString = await AnalyzeImage(imageUrl).ConfigureAwait(continueOnCapturedContext: false);
