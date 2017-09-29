@@ -42,7 +42,7 @@ To get started follow these steps:
 In this section we are going to make a modification to the application to make it smarter. We will use Azure Cognitive Services to automatically caption images people upload.
 
 1. Create an Azure Cognitive Service in your Azure Subscription, choosing the Computer Vision API
-![Restore nuget packages](/images/cog-svc-create.png)
+![Cognitive Service Create](/images/cog-svc-create.png)
 
 2. After it creates, make a note of the Access Key and the Endpoint URL as we will use that in the code.
 
