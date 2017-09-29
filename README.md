@@ -35,9 +35,72 @@ To get started follow these steps:
 -------------
 ### Part 2: Deployment slots
 
+In this section we are going to add a new deployment slot to the Web App and then initiate a slot swap.
+
+1. Within your existing Web App in the Azure portal, find the 'Deployment Slots' blade.
+![Open slots blade](/images/slots-blade.PNG)
+
+2. Click 'Add Slot'.
+
+3. When the pane appears, enter a slot name and select the slot from which you'd like to copy configuration settings ('anotherjabbr' in the example below). Click 'Ok'.
+
+![Add Slot](/images/add-slot.PNG)
+
+4. Once the slot provisions successfully, navigate to the URL for the new slot. You'll find an empty IIS site. 
+```
+http://<WebAppName>-<SlotName>.azurewebsites.net
+```
+
+5. Go back to the 'Deployment Slots' blade and choose the newly created slot.
+![Open Slot](/images/open-new-slot.PNG)
+
+6. From the Web App main portal page, or from the 'Deployment Slots' blade, choose 'Swap'.
+![Initiate Swap](/images/initiate-swap.PNG)
+
+7. Navigate to the URLs for each slot and you should see that the sites have swapped. Swap back if you wish.
+
+-------------
+### Part 3: Deployment Slot Settings
+In this section we are going to make an application change which leverages a slot settings.
+
+1. In the new slot Web App pane go to the 'Application Settings'
+
+2. Scroll to the 'App Settings' section and add a new setting to indicate the environment name (ex. test) and call it 'ENV'. Also select the 'Slot Setting' checkbox and then click 'Save'.
+![Add slot setting](/images/add-slot-setting.PNG)
+
+3. Go back to the first Web App (i.e. the App from which you created this new slot) and set the 'ENV' application setting to specify the environment name (ex. production). Be sure to also select the 'Slot Setting' checkbox.
+
+4. In your application code, navigate to JabbR/ViewModels/SettingsViewModel.cs and add the following property:
+```cs
+        public string Env
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["ENV"];
+            }
+
+        }
+```
+
+5. Navigate to JabbR/Views/Home/index.cshtml and update the title to include your new property as follows:
+```
+<title>JabbR - @Model.Env</title>
+```
+
+6. You can build and run locally to test. You should see 'Jabbr - ' in the title bar. If you wish to have a value show up locally you can add an 'ENV' variable in your local Web.config AppSettings.
+
+ex.
+```
+<add key="ENV" value="development"/>
+```
+
+7. Publish your application again as you did in Part 1.
+
+8. When you run your newly deployed app
+
 -------------
 
-### Part 3: Adding in some intelligence
+### Part 4: Adding in some intelligence
 
 In this section we are going to make a modification to the application to make it smarter. We will use Azure Cognitive Services to automatically caption images people upload.
 
