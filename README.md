@@ -36,7 +36,21 @@ To get started follow these steps:
 10. Browse to the application and it should begin working.
 
 -------------
-### Part 2: Deployment slots
+### Part 2: Redirect HTTP to HTTPS
+
+In this section we will apply the App Service extention to force HTTP traffic to HTTPS.
+
+1. Within the App Service blade select 'Extensions'
+![Open extensions blade](/images/extensions.PNG)
+
+2. Click 'Add' and find the 'Redirect HTTP to HTTPS' extension.
+
+3. Click 'Ok' on the legal terms and then 'Ok' to deploy the extension.
+
+4. When complete, attempt to navigate to your site via HTTP and confirm you're redirected to HTTPS.
+
+-------------
+### Part 3: Deployment slots
 
 In this section we are going to add a new deployment slot to the Web App and then initiate a slot swap.
 
@@ -66,7 +80,7 @@ http://<WebAppName>-<SlotName>.azurewebsites.net
 7. Navigate to the URLs for each slot and you should see that the sites have swapped. Swap back if you wish.
 
 -------------
-### Part 3: Deployment Slot Settings
+### Part 4: Deployment Slot Settings
 In this section we are going to make an application change which leverages a slot settings.
 
 1. In the new slot Web App pane go to the 'Application Settings'
@@ -107,7 +121,7 @@ ex.
 
 -------------
 
-### Part 4: Adding in some intelligence
+### Part 5: Adding in some intelligence
 
 In this section we are going to make a modification to the application to make it smarter. We will use Azure Cognitive Services to automatically caption images people upload.
 
