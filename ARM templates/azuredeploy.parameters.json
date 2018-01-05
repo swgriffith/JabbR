@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "WebsiteName": {
+        "value": "jabri1"
+      },
+      "JBR_ServerName": {
+        "value": "jabbr1db"
+      },
+      "JBR_DBLogin": {
+        "value": "AdminUser"
+      },
+      "JBR_DBPassword": {
+        "value": "P2ssw0rd"
+      },
+      "JBR_DBPasswordForTest": {
+        "value": "P2ssw0rd"
+      },
+      "JBR_DBName": {
+        "value": "Jabbr1DB"
+      },
+      "JBR_DBCollation": {
+        "value": "SQL_Latin1_General_CP1_CI_AS"
+      },
+      "JBR_DBEdition": {
+        "value": "Basic"
+      },
+      "JBR_HostingPlanName": {
+        "value": "JBR"
+      },
+      "JBR_HostingPlanSKU": {
+        "value": "Standard"
+      },
+      "JBR_HostingPlanWorkerSize": {
+        "value": "0"
+      },
+      "EnableRules": {
+        "value": false
+      }
+    }
+  }
