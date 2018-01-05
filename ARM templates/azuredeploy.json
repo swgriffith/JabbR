@@ -434,7 +434,7 @@
                         "[resourceId('Microsoft.Web/sites', parameters('WebSiteName'))]"
                     ],
                     "properties": {
-                        "connectionStringNames": [ "DefaultConnectionString" ],
+                        "connectionStringNames": [ "Jabbr" ],
                         "appSettingNames": [ "keys:ApplicationInsights:InstrumentationKey" ]
                     }
                 },
