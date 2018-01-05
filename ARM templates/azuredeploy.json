@@ -409,7 +409,7 @@
                         "[resourceId('Microsoft.Web/sites/', parameters('WebSiteName'))]"
                     ],
                     "properties": {
-                        "DefaultConnectionString": {
+                        "Jabbr": {
                             "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('JBRServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('JBR_DBName'), ';User Id=', parameters ('JBR_DBLogin'), '@', variables('JBRServerName'), ';Password=', parameters('JBR_DBPassword'), ';')]",
                             "type": "SQLAzure"
                         }
