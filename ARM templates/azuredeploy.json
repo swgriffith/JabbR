@@ -457,7 +457,7 @@
                                 "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Dev')]"
                             ],
                             "properties": {
-                                "DefaultConnectionString": {
+                                "Jabbr": {
                                     "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('JBRServerNameDev'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('JBR_DBName'), ';User Id=', parameters ('JBR_DBLogin'), '@', variables('JBRServerNameDev'), ';Password=', parameters('JBR_DBPasswordForTest'), ';')]",
                                     "type": "SQLAzure"
                                 }
@@ -495,7 +495,7 @@
                                 "[resourceId('Microsoft.Web/sites/slots', parameters('WebSiteName'), 'Staging')]"
                             ],
                             "properties": {
-                                "DefaultConnectionString": {
+                                "Jabbr": {
                                     "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('JBRServerNameStage'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', parameters('JBR_DBName'), ';User Id=', parameters ('JBR_DBLogin'), '@', variables('JBRServerNameStage'), ';Password=', parameters('JBR_DBPasswordForTest'), ';')]",
                                     "type": "SQLAzure"
                                 }
