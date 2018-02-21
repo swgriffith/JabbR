@@ -125,13 +125,19 @@ ex.
 
 In this section we are going to make a modification to the application to make it smarter. We will use Azure Cognitive Services to automatically caption images people upload.
 
-1. Create an Azure Cognitive Service in your Azure Subscription, choosing the Computer Vision API
+1, First, you will need to create an Azure Storage account to hold uploaded images. 
+
+2. Grab the storage account connection string and go to the Jabbr homepage.
+
+3. Under the Jabbr settings, update the storage account connection string.
+
+4. Create an Azure Cognitive Service in your Azure Subscription, choosing the Computer Vision API
 
 ![Cognitive Service Create](/images/cog-svc-create.PNG)
 
-2. After it creates, make a note of the Access Key and the Endpoint URL as we will use that in the code.
+5. After it creates, make a note of the Access Key and the Endpoint URL as we will use that in the code.
 
-3. In the application itself we are going to make a modification to the `ImageContentProvider` class. We will add this following method (replacing the access key and endpoint url):
+6. In the application itself we are going to make a modification to the `ImageContentProvider` class. We will add this following method (replacing the access key and endpoint url):
 
 ```csharp
 static async Task<string> AnalyzeImage(string imageUrl)
@@ -151,16 +157,16 @@ static async Task<string> AnalyzeImage(string imageUrl)
 
     string contentString = await response.Content.ReadAsStringAsync().ConfigureAwait(continueOnCapturedContext: false);
 
-    return caption;
+    return contentString;
 }
 ```
 
-4. Find the method `GetCollapsibleContent` and update the bottom of the method to look like this:
+7. Find the method `GetCollapsibleContent` and update the bottom of the method to look like this:
 
 ```csharp
 string contentString = await AnalyzeImage(imageUrl).ConfigureAwait(continueOnCapturedContext: false);
 dynamic converted = JsonConvert.DeserializeObject<dynamic>(contentString);
-caption = converted["description"]["captions"][0].text.ToString();
+string caption = converted["description"]["captions"][0].text.ToString();
 
 return new ContentProviderResult()
 {
@@ -170,7 +176,7 @@ return new ContentProviderResult()
 };
 ```
 
-5. Now when you upload an image it should call out to the service to automatically caption it with a description.
+8. Now when you upload an image it should call out to the service to automatically caption it with a description.
 
 ![Caption image](/images/image-caption.gif)
 
