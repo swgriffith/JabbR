@@ -31,7 +31,8 @@ To get started follow these steps:
                 response = await client.PostAsync(uri, new StringContent(body, System.Text.Encoding.UTF8, "application/json")).ConfigureAwait(continueOnCapturedContext: false); ;
 
                 string contentString = await response.Content.ReadAsStringAsync().ConfigureAwait(continueOnCapturedContext: false);
-
+                
+                //In real life you'd probably use something like Newtonsoft Json here rather than substring
                 int score = Convert.ToInt32(contentString.Substring(25, 2));
 
                 if (score>75)
