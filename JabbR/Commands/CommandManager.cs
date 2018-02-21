@@ -55,7 +55,28 @@ namespace JabbR.Commands
 
         public string ParseCommand(string commandString, out string[] args)
         {
+
+            if (commandString.Contains("/qna"))
+            {
+                return ParseQnACommand(commandString, out args);
+            }
+
             var parts = commandString.Substring(1).Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (parts.Length == 0)
+            {
+                args = new string[0];
+                return null;
+            }
+
+            args = parts.Skip(1).ToArray();
+
+            return parts[0];
+        }
+
+        public string ParseQnACommand(string commandString, out string[] args)
+        {
+            var parts = commandString.Substring(1).Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (parts.Length == 0)
             {
