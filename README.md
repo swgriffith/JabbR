@@ -85,13 +85,15 @@ In this section we are going to make an application change which leverages a slo
 
 1. In the new slot Web App pane go to the 'Application Settings'
 
-2. Scroll to the 'App Settings' section and add a new setting to indicate the environment name (ex. test) and call it 'ENV'. Also select the 'Slot Setting' checkbox and then click 'Save'.
+2. Scroll to the 'App Settings' section and add a new setting to indicate the environment name (ex. test) and call it 'ENV'. Also select the 'Slot Setting' checkbox and then click 'Save'. 
+
+3. In the portal navigate to the initial deployment (i.e. the other slot) and ensure the same setting is applied, but use a different value (ex. Prod).
 
 ![Add slot setting](/images/add-slot-setting.PNG)
 
-3. Go back to the first Web App (i.e. the App from which you created this new slot) and set the 'ENV' application setting to specify the environment name (ex. production). Be sure to also select the 'Slot Setting' checkbox.
+4. Go back to the first Web App (i.e. the App from which you created this new slot) and set the 'ENV' application setting to specify the environment name (ex. production). Be sure to also select the 'Slot Setting' checkbox.
 
-4. In your application code, navigate to JabbR/ViewModels/SettingsViewModel.cs and add the following property:
+5. In your application code, navigate to JabbR/ViewModels/SettingsViewModel.cs and add the following property:
 ```cs
         public string Env
         {
@@ -103,21 +105,23 @@ In this section we are going to make an application change which leverages a slo
         }
 ```
 
-5. Navigate to JabbR/Views/Home/index.cshtml and update the title to include your new property as follows:
+6. Navigate to JabbR/Views/Home/index.cshtml and update the title to include your new property as follows:
 ```
 <title>JabbR - @Model.Env</title>
 ```
 
-6. You can build and run locally to test. You should see 'Jabbr - ' in the title bar. If you wish to have a value show up locally you can add an 'ENV' variable in your local Web.config AppSettings.
+7. You can build and run locally to test. You should see 'Jabbr - ' in the title bar. If you wish to have a value show up locally you can add an 'ENV' variable in your local Web.config AppSettings.
 
 ex.
 ```
 <add key="ENV" value="development"/>
 ```
 
-7. Publish your application again as you did in Part 1.
+8. Publish your application again as you did in Part 1.
 
-8. When you run your newly deployed app
+9. When you run your newly deployed app and login you should now see that the updated page title using the slot setting text.
+
+10. Execute a slot swap
 
 -------------
 
