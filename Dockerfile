@@ -11,7 +11,7 @@ RUN Remove-WebSite -Name 'Default Web Site'
 RUN New-Website -Name 'jabbr' -Port 80 \
     -PhysicalPath 'C:\Jabbr' -ApplicationPool '.NET v4.5'
 
-COPY JabbR/bin/Release/PublishOutput .
+COPY JabbR/bin/Release/Publish .
 
 EXPOSE 80
 

@@ -1309,6 +1309,7 @@
     <EmbeddedResource Include="Migrations\201310240539050_AddPrecision.resx">
       <DependentUpon>201310240539050_AddPrecision.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\highlight.pack.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
@@ -1380,6 +1381,7 @@
     <Content Include="Views\Home\status.cshtml" />
     <Content Include="Views\errorPage.cshtml" />
     <Content Include="Views\_layout.cshtml" />
+    <Content Include="Startup.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\QNACommand.cs" />
