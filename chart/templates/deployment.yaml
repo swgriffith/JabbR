@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{.Values.deploy.name}}"
+spec:
+  selector:
+    matchLabels:
+      app: jabbr
+  template:
+    metadata:
+      labels:
+        app: jabbr
+    spec:
+      containers:
+        - image: "stevegriffith/jabbr:{{.Values.deploy.imageTag}}"
+          imagePullPolicy: Always
+          name: jabbr
+          resources:
+          env:
+          ports:
+          - containerPort: {{.Values.deploy.containerPort}}
+            protocol: TCP
+      restartPolicy: Always        
