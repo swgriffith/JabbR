@@ -19,7 +19,7 @@ RUN msbuild /p:Configuration=Release
 #WORKDIR /inetpub/wwwroot
 #COPY --from=build /app/Jabbr/. ./
 
-FROM microsoft/iis:10.0.14393.206 AS runtime
+FROM microsoft/iis:mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019 AS runtime
 SHELL ["powershell"]
 
 RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \

@@ -8,4 +8,4 @@ deploy:
   name: jabbr
   imageTag: "latest"
   containerPort: 80
-  connectionString: "<InsertConnectionString>"        
+  connectionString: "Server=tcp:griffjabbrsvr.database.windows.net,1433;Initial Catalog=griffjabbr;Persist Security Info=False;User ID=griffith;Password=Y42RnJN!IrPQ;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"        
