@@ -12,11 +12,13 @@ spec:
         app: jabbr
     spec:
       containers:
-        - image: "stevegriffith/jabbr:{{.Values.deploy.imageTag}}"
+        - image: "griffwinacr.azurecr.io/jabbr:{{.Values.deploy.imageTag}}"
           imagePullPolicy: Always
           name: jabbr
           resources:
           env:
+            - name: CONNSTR_Jabbr
+              value: {{.Values.deploy.connectionString}}
           ports:
           - containerPort: {{.Values.deploy.containerPort}}
             protocol: TCP

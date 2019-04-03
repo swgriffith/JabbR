@@ -8,3 +8,4 @@ deploy:
   name: jabbr
   imageTag: "latest"
   containerPort: 80
+  connectionString: "<InsertConnectionString>"        
