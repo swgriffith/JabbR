@@ -18,7 +18,7 @@ spec:
           resources:
           env:
             - name: CONNSTR_Jabbr
-              value: {{.Values.deploy.connectionString}}
+              value: "Server=tcp:{{.Values.deploy.dbServer}},1433;Initial Catalog=griffjabbr;Persist Security Info=False;User ID={{.Values.deploy.dbUser}};Password={{.Values.deploy.dbPasswd}};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
           ports:
           - containerPort: {{.Values.deploy.containerPort}}
             protocol: TCP
