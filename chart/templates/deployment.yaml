@@ -12,7 +12,7 @@ spec:
         app: jabbr
     spec:
       containers:
-        - image: "griffwinacr.azurecr.io/jabbr:{{.Values.deploy.imageTag}}"
+        - image: "griff.azurecr.io/jabbr:{{.Values.deploy.imageTag}}"
           imagePullPolicy: Always
           name: jabbr
           resources:
