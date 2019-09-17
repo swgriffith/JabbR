@@ -12,13 +12,13 @@ spec:
         app: jabbr
     spec:
       containers:
-        - image: "griff.azurecr.io/jabbr:{{.Values.deploy.imageTag}}"
+        - image: "griffith.azurecr.io/jabbr:{{.Values.deploy.imageTag}}"
           imagePullPolicy: Always
           name: jabbr
           resources:
           env:
             - name: CONNSTR_Jabbr
-              value: "Server=tcp:{{.Values.deploy.dbServer}},1433;Initial Catalog=griffjabbr;Persist Security Info=False;User ID={{.Values.deploy.dbUser}};Password={{.Values.deploy.dbPasswd}};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+              value: "Server=tcp:{{.Values.deploy.dbServer}},1433;Initial Catalog={{.Values.deploy.dbName}};Persist Security Info=False;User ID={{.Values.deploy.dbUser}};Password={{.Values.deploy.dbPasswd}};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
           ports:
           - containerPort: {{.Values.deploy.containerPort}}
             protocol: TCP

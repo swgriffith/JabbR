@@ -6,10 +6,11 @@ service:
 
 deploy:
   name: jabbr
-  imageTag: "latest"
+  imageTag: "20190917001"
   containerPort: 80
-  dbServer: "<Insert DB Server>"
-  dbUser: "<Insert DB User ID>"
-  dbPasswd: "<Insert DB Passwd>"
+  dbServer: "<Insert DB Server Name>"
+  dbName: "<Insert DB Name>"
+  dbUser: "<Insert DB User Name>"
+  dbPasswd: "<Insert DB User Passwd>"
 
   
