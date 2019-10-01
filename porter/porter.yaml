@@ -1,0 +1,157 @@
+name: jabbr-bundle
+version: 0.1.0
+description: "Jabbr chat app running on a Windows AKS cluster with Azure SQL DB"
+invocationImage: stevegriffith/jabbr-installer:latest
+dockerfile: cnab/app/Dockerfile.base
+tag: stevegriffith/jabbr-bundle:v0.1.0
+
+mixins:
+  - exec
+  - helm
+  - kubernetes
+
+install:
+
+  - exec: 
+      description: "Azure CLI login"
+      command: "az"
+      arguments: 
+        - "login" 
+        - "--service-principal"
+        - "--username" 
+        - "{{ bundle.credentials.CLIENT_ID}}"
+        - "--password" 
+        - "{{ bundle.credentials.CLIENT_SECRET}}"
+        - "--tenant" 
+        - "{{ bundle.credentials.TENANT_ID}}"
+
+  - exec: 
+      description: "Azure Create AKS Cluster"
+      command: "az"
+      arguments: 
+        - "aks"
+        - "create"
+        - "--resource-group"
+        - "{{ bundle.parameters.aks-resource-group }}"
+        - "--name"
+        - "--kubernetes-version"
+        - "{{ bundle.parameters.aks-kubernetes-version }}"
+        - "{{ bundle.parameters.aks-cluster-name }}"
+        - "--node-count"
+        - "{{ bundle.parameters.aks-linux-node-count }}"
+        - "--ssh-key-value"
+        - "{{ bundle.parameters.aks-ssh-key-value }}"
+        - "--windows-admin-password"
+        - "{{ bundle.parameters.aks-windows-passwd }}"
+        - "--windows-admin-username"
+        - "{{ bundle.parameters.aks-windows-username }}"
+        - "--vm-set-type"
+        - "VirtualMachineScaleSets"
+        - "--network-plugin"
+        - "azure"
+
+  - exec:
+      description: "Azure Add AKS Windows Node Pool"
+      command: "az"
+      arguments:
+        - "aks"
+        - "nodepool"
+        - "add"
+        - "--resource-group"
+        - "{{ bundle.parameters.aks-resource-group }}"
+        - "--cluster-name"
+        - "{{ bundle.parameters.aks-cluster-name }}"
+        - "--os-type"
+        - "Windows"
+        - "--name"
+        - "{{ bundle.parameters.aks-win-pool-name }}"
+        - "--node-count"
+        - "{{ bundle.parameters.aks-win-node-count }}"
+        - "--kubernetes-version"
+        - "{{ bundle.parameters.aks-kubernetes-version }}"
+    
+  - exec: 
+      description: "Azure CLI AKS get-credentials"
+      command: "az"
+      arguments: 
+        - "aks" 
+        - "get-credentials" 
+        - "--resource-group" 
+        - "{{ bundle.parameters.aks-resource-group }}"
+        - "--name"
+        - "{{ bundle.parameters.aks-cluster-name }}"
+
+  - kubernetes:
+      description: "Add RBAC roles for Tiller"
+      manifests:
+        - /cnab/app/manifests
+      wait: true  
+
+  - exec: 
+      description: "Initialize helm on cluster"
+      command: "helm"
+      arguments: 
+        - "init" 
+        - "--service-account"
+        - "tiller" 
+        - "--node-selectors"
+        - "beta.kubernetes.io/os=linux"
+        - "--upgrade"
+
+uninstall:
+  - exec:
+      description: "Uninstall Jabbr Demo"
+      command: bash
+      flags:
+        c: echo App should be uninstalled here, but it is not
+
+credentials:
+- name: SUBSCRIPTION_ID
+  env: AZURE_SUBSCRIPTION_ID
+- name: CLIENT_ID
+  env: AZURE_CLIENT_ID
+- name: TENANT_ID
+  env: AZURE_TENANT_ID
+- name: CLIENT_SECRET
+  env: AZURE_CLIENT_SECRET
+
+parameters:
+- name: aks-resource-group
+  type: string
+  default: jabbr-demo
+  env: AKS_RESOURCE_GROUP
+- name: aks-cluster-name
+  type: string
+  default: my-aks-spring
+  env: AKS_CLUSTER_NAME
+- name: azure-location
+  type: string
+  default: eastus
+  env: AZURE_LOCATION
+- name: aks-kubernetes-version
+  type: string
+  default: "1.14.6"
+  env: AKS_KUBERNETES_VERSION
+- name: aks-linux-node-count
+  type: string
+  default: "2"
+  env: AKS_LINUX_NODE_COUNT
+- name: aks-ssh-key-value
+  type: string
+  env: AKS_SSH_KEY_VALUE
+- name: aks-win-node-count
+  type: string
+  default: "2"
+  env: AKS_WIN_NODE_COUNT
+- name: aks-windows-passwd
+  type: string
+  env: AKS_WINDOWS_PASSWD
+- name: aks-windows-username
+  type: string
+  default: "azureuser"
+  env: AKS_WINDOWS_USERNAME
+- name: aks-win-pool-name
+  type: string
+  default: "winnodepool1"
+  env: AKS_WIN_POOL_NAME
+

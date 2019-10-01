@@ -1,0 +1,16 @@
+# Default values for chart
+
+service:
+  type: LoadBalancer
+  port: 80
+
+deploy:
+  name: jabbr
+  imageTag: "20190917001"
+  containerPort: 80
+  dbServer: "<Insert DB Server Name>"
+  dbName: "<Insert DB Name>"
+  dbUser: "<Insert DB User Name>"
+  dbPasswd: "<Insert DB User Passwd>"
+
+  
