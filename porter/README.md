@@ -1,10 +1,10 @@
-# CNAB Bundle with Porter - Spring Music Demo App
+# CNAB Bundle with Porter - Jabbr Windows Container Demo App
 
 This bundle demonstrates advanced use cases for Porter.
 
 The bundle leverages a base Dockerfile (cnab/app/Dockerfile.base) to customize the resulting invocation image for the bundle by first installing the `azure cli` so that it can be used by the `exec` mixin. It then uses 4 mixins to access your Azure subscription and deploy the app. These values need to be updated in the porter.yaml.
 
-* The `azure` mixin is used to create an AKS cluster using ARM. This requires subscription and tenant info.
+* The `azure` mixin is used to create an AKS windows cluster using Azure CLI and the Azure SQL DB using an ARM template and the Azure CLI. This requires subscription and tenant info.
 * The `exec` mixin uses an Azure Service Principal to access via the CLI and install Helm's Tiller into an AKS cluster.
 * The `kubernetes` mixin applys RBAC policies for Helm
 * The `helm` mixin deploys the chart into the AKS cluster.
@@ -49,6 +49,9 @@ The bundle will use the service principal created above to interact with Azure. 
 * Install the bundle
 
     ```bash
-    export INSTALL_ID=314
-    porter install -c azure  --param app-resource-group=spring-music-demo-$INSTALL_ID --param aks-resource-group=spring-music-demo-$INSTALL_ID --param aks-cluster-name=briar-aks-spring-$INSTALL_ID --param cosmosdb-service-name=briarspringmusic$INSTALL_ID --param azure-location=eastus
+        porter install --cred ~/.porter/credentials/azure.yaml \
+        --param aks-windows-passwd=<INSERTPASSWD> \
+        --param azure-sql-db-user-passwd=<INSERTPASSWD> \
+        --param aks-resource-group=<INSERT_RG_NAME> \
+        --param aks-cluster-name=<INSERT_CLUSTER_NAME>
     ```

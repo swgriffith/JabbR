@@ -151,14 +151,10 @@ install:
 
 uninstall:
   - exec:
-      description: "Uninstall Jabbr Demo"
-      command: "az"
-      arguments:
-        - "group"
-        - "delete"
-        - "-n"
-        - "{{ bundle.parameters.aks-resource-group }}"
-        - "-y"
+      description: "Uninstall Spring Music Demo"
+      command: bash
+      flags:
+        c: echo App should be uninstalled here, but it is not
 
 credentials:
 - name: SUBSCRIPTION_ID
