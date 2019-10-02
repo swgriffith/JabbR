@@ -1,6 +1,7 @@
 FROM debian:stretch
 
 ARG BUNDLE_DIR
+COPY . $BUNDLE_DIR
 
 RUN apt-get update -y \
   && apt-get install curl apt-transport-https lsb-release gnupg -y \
