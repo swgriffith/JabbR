@@ -113,12 +113,52 @@ install:
         - "beta.kubernetes.io/os=linux"
         - "--upgrade"
 
+
+  - exec:
+      description: "Create Azure SQL DB"
+      command: "az"
+      arguments:
+        - "group"
+        - "deployment"
+        - "create"
+        - "-g"
+        - "{{ bundle.parameters.aks-resource-group }}"
+        - "--parameters"
+        - "sqlAdministratorLogin={{ bundle.parameters.azure-sql-db-username }}"
+        - "sqlAdministratorLoginPassword={{ bundle.parameters.azure-sql-db-user-passwd }}"
+        - "--template-file"
+        - "./cnab/app/arm/azure-sql-db.json"
+        - "--mode"
+        - "Incremental"
+      outputs:
+        - name: azure-sql-db-server
+          jsonPath: $.properties.outputs.sqlServerFqdn.value
+      wait: true
+
+  - helm:
+      description: "Helm Install Jabbr"
+      name: jabbr-helm
+      chart: cnab/app/chart
+      replace: true
+      set:
+        deploy.name: "jabbr"
+        deploy.imageTag: "v1"
+        deploy.containerPort: 80
+        deploy.dbServer: "{{ bundle.outputs.azure-sql-db-server }}"
+        deploy.dbName: "jabbr"
+        deploy.dbUser: "{{ bundle.parameters.azure-sql-db-username }}"
+        deploy.dbPasswd: "{{ bundle.parameters.azure-sql-db-user-passwd }}"
+
 uninstall:
   - exec:
       description: "Uninstall Jabbr Demo"
-      command: bash
-      flags:
-        c: echo App should be uninstalled here, but it is not
+      command: "az"
+      arguments:
+        - "group"
+        - "delete"
+        - "-n"
+        - "{{ bundle.parameters.aks-resource-group }}"
+        - "-y"
 
 credentials:
 - name: SUBSCRIPTION_ID
@@ -166,4 +206,11 @@ parameters:
   type: string
   default: "npwin1"
   env: AKS_WIN_POOL_NAME
+- name: azure-sql-db-username
+  type: string
+  default: "azuresqluser"
+  env: AZURE_SQL_DB_USERNAME
+- name: azure-sql-db-user-passwd
+  type: string
+  env: AZURE_SQL_DB_USER_PASSWD    
 
