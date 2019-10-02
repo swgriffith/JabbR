@@ -26,49 +26,63 @@ install:
         - "{{ bundle.credentials.TENANT_ID}}"
 
   - exec: 
-      description: "Azure Create AKS Cluster"
+      description: "Azure Create Resource Group"
       command: "az"
       arguments: 
-        - "aks"
+        - "group" 
         - "create"
-        - "--resource-group"
+        - "-n"
         - "{{ bundle.parameters.aks-resource-group }}"
-        - "--name"
-        - "--kubernetes-version"
-        - "{{ bundle.parameters.aks-kubernetes-version }}"
-        - "{{ bundle.parameters.aks-cluster-name }}"
-        - "--node-count"
-        - "{{ bundle.parameters.aks-linux-node-count }}"
-        - "--ssh-key-value"
-        - "{{ bundle.parameters.aks-ssh-key-value }}"
-        - "--windows-admin-password"
-        - "{{ bundle.parameters.aks-windows-passwd }}"
-        - "--windows-admin-username"
-        - "{{ bundle.parameters.aks-windows-username }}"
-        - "--vm-set-type"
-        - "VirtualMachineScaleSets"
-        - "--network-plugin"
-        - "azure"
+        - "-l"
+        - "{{ bundle.parameters.azure-location}}"
 
-  - exec:
-      description: "Azure Add AKS Windows Node Pool"
-      command: "az"
-      arguments:
-        - "aks"
-        - "nodepool"
-        - "add"
-        - "--resource-group"
-        - "{{ bundle.parameters.aks-resource-group }}"
-        - "--cluster-name"
-        - "{{ bundle.parameters.aks-cluster-name }}"
-        - "--os-type"
-        - "Windows"
-        - "--name"
-        - "{{ bundle.parameters.aks-win-pool-name }}"
-        - "--node-count"
-        - "{{ bundle.parameters.aks-win-node-count }}"
-        - "--kubernetes-version"
-        - "{{ bundle.parameters.aks-kubernetes-version }}"
+  # - exec: 
+  #     description: "Azure Create AKS Cluster"
+  #     command: "az"
+  #     arguments: 
+  #       - "aks"
+  #       - "create"
+  #       - "--resource-group"
+  #       - "{{ bundle.parameters.aks-resource-group }}"
+  #       - "--name"
+  #       - "{{ bundle.parameters.aks-cluster-name }}"
+  #       - "--kubernetes-version"
+  #       - "{{ bundle.parameters.aks-kubernetes-version }}"
+  #       - "--service-principal" 
+  #       - "{{ bundle.credentials.CLIENT_ID}}"
+  #       - "--client-secret" 
+  #       - "{{ bundle.credentials.CLIENT_SECRET}}"        
+  #       - "--node-count"
+  #       - "{{ bundle.parameters.aks-linux-node-count }}"
+  #       - "--generate-ssh-keys"
+  #       - "--windows-admin-password"
+  #       - "{{ bundle.parameters.aks-windows-passwd }}"
+  #       - "--windows-admin-username"
+  #       - "{{ bundle.parameters.aks-windows-username }}"
+  #       - "--vm-set-type"
+  #       - "VirtualMachineScaleSets"
+  #       - "--network-plugin"
+  #       - "azure"
+
+  # - exec:
+  #     description: "Azure Add AKS Windows Node Pool"
+  #     command: "az"
+  #     arguments:
+  #       - "aks"
+  #       - "nodepool"
+  #       - "add"
+  #       - "--resource-group"
+  #       - "{{ bundle.parameters.aks-resource-group }}"
+  #       - "--cluster-name"
+  #       - "{{ bundle.parameters.aks-cluster-name }}"
+  #       - "--os-type"
+  #       - "Windows"
+  #       - "--name"
+  #       - "{{ bundle.parameters.aks-win-pool-name }}"
+  #       - "--node-count"
+  #       - "{{ bundle.parameters.aks-win-node-count }}"
+  #       - "--kubernetes-version"
+  #       - "{{ bundle.parameters.aks-kubernetes-version }}"
     
   - exec: 
       description: "Azure CLI AKS get-credentials"
@@ -122,7 +136,7 @@ parameters:
   env: AKS_RESOURCE_GROUP
 - name: aks-cluster-name
   type: string
-  default: my-aks-spring
+  default: my-aks-jabbr
   env: AKS_CLUSTER_NAME
 - name: azure-location
   type: string
@@ -136,9 +150,6 @@ parameters:
   type: string
   default: "2"
   env: AKS_LINUX_NODE_COUNT
-- name: aks-ssh-key-value
-  type: string
-  env: AKS_SSH_KEY_VALUE
 - name: aks-win-node-count
   type: string
   default: "2"
@@ -152,6 +163,6 @@ parameters:
   env: AKS_WINDOWS_USERNAME
 - name: aks-win-pool-name
   type: string
-  default: "winnodepool1"
+  default: "npwin1"
   env: AKS_WIN_POOL_NAME
 
