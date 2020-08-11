@@ -11,6 +11,8 @@ spec:
       labels:
         app: jabbr
     spec:
+      imagePullSecrets:
+      - name: regcred
       containers:
         - image: "{{.Values.deploy.acr}}:{{.Values.deploy.imageTag}}"
           imagePullPolicy: Always
