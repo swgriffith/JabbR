@@ -14,7 +14,7 @@ spec:
       imagePullSecrets:
       - name: regcred
       containers:
-        - image: "{{.Values.deploy.acr}}:{{.Values.deploy.imageTag}}"
+        - image: "{{.Values.deploy.acr}}/jabbr:{{.Values.deploy.imageTag}}"
           imagePullPolicy: Always
           name: jabbr
           resources:
