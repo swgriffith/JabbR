@@ -18,7 +18,10 @@ spec:
           resources:
           env:
             - name: CONNSTR_Jabbr
-              value: "Server=tcp:{{.Values.deploy.dbServer}},1433;Initial Catalog={{.Values.deploy.dbName}};Persist Security Info=False;User ID={{.Values.deploy.dbUser}};Password={{.Values.deploy.dbPasswd}};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+              valueFrom:
+                secretKeyRef:
+                  name: sql-db-conn-secret
+                  key: connstr
           ports:
           - containerPort: {{.Values.deploy.containerPort}}
             protocol: TCP
