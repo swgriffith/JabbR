@@ -1,5 +1,5 @@
 param (
-    [string]$webConfig = "C:\Jabbr\web.config"
+    [string]$webConfig = "c:\inetpub\wwwroot\web.config"
 )
 
 $doc = (Get-Content $webConfig) -as [Xml];

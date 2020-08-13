@@ -1,4 +1,4 @@
-FROM microsoft/dotnet-framework:4.7.2-sdk AS build
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-20200811-windowsservercore-ltsc2019 AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -13,27 +13,10 @@ COPY JabbR ./JabbR
 WORKDIR /app/JabbR
 RUN msbuild /p:Configuration=Release
 
-
-# copy build artifacts into runtime image
-#FROM microsoft/aspnet:4.7.2 AS runtime
-#WORKDIR /inetpub/wwwroot
-#COPY --from=build /app/Jabbr/. ./
-
-FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019 AS runtime
+FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8 AS runtime
 SHELL ["powershell"]
 
-RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
-    Install-WindowsFeature Web-Asp-Net45
+WORKDIR /inetpub/wwwroot
+COPY --from=build /app/JabbR/. ./
 
-RUN mkdir Jabbr
-WORKDIR Jabbr
-
-RUN Remove-WebSite -Name 'Default Web Site'
-RUN New-Website -Name 'jabbr' -Port 80 \
-    -PhysicalPath 'C:\Jabbr' -ApplicationPool '.NET v4.5'
-
-COPY --from=build /app/Jabbr/. ./
-
-EXPOSE 80
-
-ENTRYPOINT powershell.exe -File c:\Jabbr\Startup.ps1
+ENTRYPOINT powershell.exe -File c:\inetpub\wwwroot\Startup.ps1
