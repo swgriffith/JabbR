@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-20200811-windowsservercore-ltsc2019 AS build
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-20200714-windowsservercore-ltsc2019 AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -13,7 +13,7 @@ COPY JabbR ./JabbR
 WORKDIR /app/JabbR
 RUN msbuild /p:Configuration=Release
 
-FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8 AS runtime
+FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-20200714-windowsservercore-ltsc2019 AS runtime
 SHELL ["powershell"]
 
 WORKDIR /inetpub/wwwroot
