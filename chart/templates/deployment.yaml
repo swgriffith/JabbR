@@ -5,11 +5,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: jabbr
+      app: {{.Values.deploy.name}}
   template:
     metadata:
       labels:
-        app: jabbr
+        app: {{.Values.deploy.name}}
     spec:
       imagePullSecrets:
       - name: regcred
@@ -28,5 +28,5 @@ spec:
           - containerPort: {{.Values.deploy.containerPort}}
             protocol: TCP
       nodeSelector:
-        "beta.kubernetes.io/os": windows            
-      restartPolicy: Always        
+        "beta.kubernetes.io/os": windows
+      restartPolicy: Always

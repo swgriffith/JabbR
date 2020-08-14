@@ -1,6 +1,7 @@
 # Default values for chart
 
 service:
+  name: jabbr
   type: LoadBalancer
   port: 80
 
